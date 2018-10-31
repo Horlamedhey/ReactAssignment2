@@ -1,24 +1,36 @@
 import React, {
   Component
 } from "react";
-import UserInput from './UserInput/UserInput';
-import UserOutput from './UserOutput/UserOutput';
+import CharComponent from './CharComponent/CharComponent';
+import ValidationComponent from './ValidationComponent/ValidationComponent';
 import "./App.css";
 
 class App extends Component {
   state = {
-    username: 'variable'
+    stringValue: '',
+    stringlength: 0
   }
 
   inputChangedHandler = (event) => {
     this.setState({
-      username: [
-        event.target.value
-      ]
+      stringValue: event.target.value,
+      stringlength: event.target.value.length
+    })
+  }
+
+  deleteCharHandler = (event, index) => {
+    const chars = [...this.state.stringValue]
+    chars.splice(index, 1)
+    this.setState({
+      stringValue: chars.join(''),
+      stringlength: chars.join('').length
     })
   }
 
   render () {
+    const chars = [...this.state.stringValue]
+    const char = chars.map((letter, index) => <CharComponent click={(event) => this.deleteCharHandler(event, index)} key={index} char={letter} />)
+
     const style = {
       padding: '16px'
     }
@@ -26,9 +38,10 @@ class App extends Component {
     return (
       <div className="App" >
         <div style={style}>
-          <UserInput changed={this.inputChangedHandler} initialValue={this.state.username} />
-          <UserOutput username={this.state.username}>It's a beautiful JS library.</UserOutput>
-          <UserOutput username={this.state.username}>It can be used to build mobile apps with the aid of React Native.</UserOutput>
+          <input type="text" onChange={this.inputChangedHandler} value={this.state.stringValue} />
+          <p>{this.state.stringlength}</p>
+          <ValidationComponent length={this.state.stringlength} />
+          {char}
         </div>
       </div >
     );
