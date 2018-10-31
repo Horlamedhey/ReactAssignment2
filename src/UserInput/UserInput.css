@@ -1,0 +1,14 @@
+.UserInput {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  width: 30%;
+  height: 30px;
+  padding: 5px;
+  font-size: 16px;
+  box-shadow: -1px -2px 3px #ccc inset, 1px 2px 4px #ccc inset;
+}
+
+.UserInput:focus {
+  outline-color: darkgoldenrod;
+}
